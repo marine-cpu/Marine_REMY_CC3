@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)https://gharel.github.io/devweb/TP/TP5/ -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Tutoriel HTTP/Express Node.js | devweb</title>
+<meta name="generator" content="Jekyll v3.10.0">
+<meta property="og:title" content="Tutoriel HTTP/Express Node.js">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Cours Dev Web pour l’UNC partie publique">
+<meta property="og:description" content="Cours Dev Web pour l’UNC partie publique">
+<link rel="canonical" href="https://gharel.github.io/devweb/TP/TP5/">
+<meta property="og:url" content="https://gharel.github.io/devweb/TP/TP5/">
+<meta property="og:site_name" content="devweb">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Tutoriel HTTP/Express Node.js">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Cours Dev Web pour l’UNC partie publique","headline":"Tutoriel HTTP/Express Node.js","url":"https://gharel.github.io/devweb/TP/TP5/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <style class="anchorjs"></style><link rel="stylesheet" href="./Tutoriel HTTP_Express Node.js _ devweb_files/style.css">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/devweb/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://gharel.github.io/devweb/">devweb</a></h1>
+      
+
+      <h1 id="tutoriel-httpexpress-nodejs">Tutoriel HTTP/Express Node.js</h1>
+
+<ul>
+  <li><a href="https://gharel.github.io/devweb/TP/TP5/#tutoriel-httpexpress-nodejs">Tutoriel HTTP/Express Node.js</a>
+    <ul>
+      <li><a href="https://gharel.github.io/devweb/TP/TP5/#partie-1--serveur-http-natif-nodejs">Partie 1 : serveur HTTP natif Node.js</a>
+        <ul>
+          <li><a href="https://gharel.github.io/devweb/TP/TP5/#installation">Installation</a></li>
+          <li><a href="https://gharel.github.io/devweb/TP/TP5/#servir-diff%C3%A9rents-types-de-contenus">Servir différents types de contenus</a></li>
+          <li><a href="https://gharel.github.io/devweb/TP/TP5/#mode-d%C3%A9veloppement">Mode développement</a></li>
+          <li><a href="https://gharel.github.io/devweb/TP/TP5/#gestion-manuelle-des-routes">Gestion manuelle des routes</a></li>
+        </ul>
+      </li>
+      <li><a href="https://gharel.github.io/devweb/TP/TP5/#partie-2--framework-express">Partie 2 : framework Express</a>
+        <ul>
+          <li><a href="https://gharel.github.io/devweb/TP/TP5/#cr%C3%A9ation-du-serveur">Création du serveur</a></li>
+          <li><a href="https://gharel.github.io/devweb/TP/TP5/#ajout-de-middlewares">Ajout de middlewares</a></li>
+          <li><a href="https://gharel.github.io/devweb/TP/TP5/#rendu-avec-ejs">Rendu avec EJS</a></li>
+          <li><a href="https://gharel.github.io/devweb/TP/TP5/#gestion-derreurs">Gestion d’erreurs</a></li>
+        </ul>
+      </li>
+      <li><a href="https://gharel.github.io/devweb/TP/TP5/#conclusion">Conclusion</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Ce tutorial est inspiré de <a href="https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module"><em>How To Create a Web Server in Node.js with the HTTP Module</em></a> et compléter avec une partie sur Express.</p>
+
+<p>Ce tutorial vous fait prendre en main l’environnement Node.js avec un petit projet de serveur web monté pas à pas, utilisant essentiellement les bilbiothèques standards de Node.js. Le framework <a href="http://expressjs.com/">http://expressjs.com/</a> sera introduit ensuite.</p>
+
+<ul>
+  <li>installer Node.js <a href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a> pour votre environnement</li>
+  <li>créer un dossier <code class="language-plaintext highlighter-rouge">devweb-tp5</code></li>
+</ul>
+
+<p><strong>RENDU</strong> vous devrez remplir le fichier <code class="language-plaintext highlighter-rouge">README.md</code> avec les questions du sujet et <strong>commiter/pousser sur GitHub</strong>.
+Les différentes étapes à réaliser seront aussi committées.</p>
+
+<h2 id="partie-1--serveur-http-natif-nodejs">Partie 1 : serveur HTTP natif Node.js<a class="anchorjs-link " href="https://gharel.github.io/devweb/TP/TP5/#partie-1--serveur-http-natif-nodejs" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+
+<h3 id="installation">Installation<a class="anchorjs-link " href="https://gharel.github.io/devweb/TP/TP5/#installation" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+
+<p>Exécuter la commande <code class="language-plaintext highlighter-rouge">npm init</code> dans le dossier <code class="language-plaintext highlighter-rouge">devweb-tp5</code>.
+Répondre avec les valeurs par défaut, sauf pour <em>entry point: (index.js)</em> où donner la valeur <code class="language-plaintext highlighter-rouge">server-http.mjs</code>
+À ce stade, un fichier <code class="language-plaintext highlighter-rouge">package.json</code> a du être créé à peu près comme suit.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"devweb-tp5"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"server-http.mjs"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo </span><span class="se">\"</span><span class="s2">Error: no test specified</span><span class="se">\"</span><span class="s2"> &amp;&amp; exit 1"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ISC"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Toujours dans le dossier <code class="language-plaintext highlighter-rouge">devweb-tp5</code> , créer le fichier <code class="language-plaintext highlighter-rouge">server-http.mjs</code> avec le contenu suivant :</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">http</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">node:http</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">host</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">localhost</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">port</span> <span class="o">=</span> <span class="mi">8000</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">requestListener</span><span class="p">(</span><span class="nx">_request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+  <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="dl">"</span><span class="s2">&lt;html&gt;&lt;h1&gt;My first server!&lt;h1&gt;&lt;/html&gt;</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="nx">requestListener</span><span class="p">);</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="nx">host</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Server is running on http://</span><span class="p">${</span><span class="nx">host</span><span class="p">}</span><span class="s2">:</span><span class="p">${</span><span class="nx">port</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Enfin, exécuter la commande <code class="language-plaintext highlighter-rouge">node server-http.mjs</code> et vérifier que votre application web fonctionne en vous connectant avec votre navigateur.</p>
+
+<p><strong>Question 1.1</strong> donner la liste des en-têtes de la réponse HTTP du serveur.</p>
+
+<h3 id="servir-différents-types-de-contenus">Servir différents types de contenus<a class="anchorjs-link " href="https://gharel.github.io/devweb/TP/TP5/#servir-diff%C3%A9rents-types-de-contenus" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+
+<p>Maintenant, remplacer la fonction <code class="language-plaintext highlighter-rouge">requestListener()</code> par la suivante et tester :</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">requestListener</span><span class="p">(</span><span class="nx">_request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">response</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span> <span class="na">message</span><span class="p">:</span> <span class="dl">"</span><span class="s2">I'm OK</span><span class="dl">"</span> <span class="p">}));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Question 1.2</strong> donner la liste des en-têtes qui ont changé depuis la version précédente.</p>
+
+<p>Remplacer enfin la fonction <code class="language-plaintext highlighter-rouge">requestListener()</code> par la suivante et tester :</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">fs</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">node:fs/promises</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">requestListener</span><span class="p">(</span><span class="nx">_request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="dl">"</span><span class="s2">index.html</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">utf8</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">contents</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">response</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">text/html</span><span class="dl">"</span><span class="p">);</span>
+      <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">contents</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Question 1.3</strong> que contient la réponse reçue par le client ?</p>
+
+<p><strong>Question 1.4</strong> quelle est l’erreur affichée dans la console ? Retrouver sur <a href="https://nodejs.org/api">https://nodejs.org/api</a> le code d’erreur affiché.</p>
+
+<p>Modifier la fonction <code class="language-plaintext highlighter-rouge">requestListener()</code> précédente pour que le client recoive une erreur 500 si <code class="language-plaintext highlighter-rouge">index.html</code> est introuvable en remplacant le callback de la méthode <code class="language-plaintext highlighter-rouge">Promise.catch()</code>.</p>
+
+<p>Maintenant, renommer le fichier <code class="language-plaintext highlighter-rouge">__index.html</code> en <code class="language-plaintext highlighter-rouge">index.html</code> et tester à nouveau.</p>
+
+<p>Enfin, reprenez <code class="language-plaintext highlighter-rouge">requestListener()</code> dans le style <code class="language-plaintext highlighter-rouge">async/await</code>.</p>
+
+<p><strong>Question 1.5</strong> donner le code de <code class="language-plaintext highlighter-rouge">requestListener()</code> modifié <em>avec gestion d’erreur</em> en <code class="language-plaintext highlighter-rouge">async/await</code>.</p>
+
+<p><strong>Commit/push</strong> dans votre dépot Git.</p>
+
+<h3 id="mode-développement">Mode développement<a class="anchorjs-link " href="https://gharel.github.io/devweb/TP/TP5/#mode-d%C3%A9veloppement" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+
+<p>Dans le dossier <code class="language-plaintext highlighter-rouge">devweb-tp5</code> exécuter les commandes suivantes :</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">npm install cross-env --save</code></li>
+  <li><code class="language-plaintext highlighter-rouge">npm install nodemon --save-dev</code></li>
+</ul>
+
+<p><strong>Question 1.6</strong> indiquer ce que cette commande a modifié dans votre projet.</p>
+
+<p>Ensuite, remplacer la propriété <code class="language-plaintext highlighter-rouge">"scripts"</code> du fichier <code class="language-plaintext highlighter-rouge">package.json</code> par la suivante :</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo </span><span class="se">\"</span><span class="s2">Error: no test specified</span><span class="se">\"</span><span class="s2"> &amp;&amp; exit 1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"http-dev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cross-env NODE_ENV=development nodemon server-http.mjs"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"http-prod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cross-env NODE_ENV=production node server-http.mjs"</span><span class="w">
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Exécuter <code class="language-plaintext highlighter-rouge">npm run http-dev</code>, visiter le site, puis <em>pendant que le serveur s’exécute</em> modifier le fichier <code class="language-plaintext highlighter-rouge">server-http.mjs</code> en ajoutant la ligne <code class="language-plaintext highlighter-rouge">console.log("NODE_ENV =", process.env.NODE_ENV);</code>.
+Enregistrer le fichier et vérifier qu’il y a eu rechargement automatique grâce à <a href="https://nodemon.io/">https://nodemon.io/</a>.
+Ensuite, faire la même chose avec la commande <code class="language-plaintext highlighter-rouge">npm run http-prod</code>.</p>
+
+<p><strong>Question 1.7</strong> quelles sont les différences entre les scripts <code class="language-plaintext highlighter-rouge">http-dev</code> et <code class="language-plaintext highlighter-rouge">http-prod</code> ?</p>
+
+<p>Les fichiers <a href="https://gharel.github.io/devweb/TP/TP5/.eslintrc.json"><code class="language-plaintext highlighter-rouge">.eslintrc.json</code></a> et <a href="https://gharel.github.io/devweb/TP/TP5/.prettierrc"><code class="language-plaintext highlighter-rouge">.prettierrc</code></a> sont fournis dans le dossier <code class="language-plaintext highlighter-rouge">devweb-tp5</code>. Exécuter la commande suivante pour installe les dépendances :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">--save-dev</span> prettier eslint eslint-config-prettier eslint-plugin-import eslint-plugin-jest eslint-plugin-node eslint-plugin-promise eslint-plugin-security eslint-plugin-unicorn
+</code></pre></div></div>
+
+<p>Vérifier que l’autoformattage avec <a href="https://prettier.io/">https://prettier.io</a> et le linting avec <a href="https://eslint.org/">https://eslint.org/</a> fonctionnent dans VSCode <strong>et</strong> en ligne de commande avec les commandes suivantes :</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">npx eslint server-http.mjs</code></li>
+  <li><code class="language-plaintext highlighter-rouge">npx prettier server-http.mjs --write</code></li>
+</ul>
+
+<p><strong>Commit/push</strong> dans votre dépot Git.</p>
+
+<h3 id="gestion-manuelle-des-routes">Gestion manuelle des routes<a class="anchorjs-link " href="https://gharel.github.io/devweb/TP/TP5/#gestion-manuelle-des-routes" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+
+<p>Remplacer la fonction <code class="language-plaintext highlighter-rouge">requestListener()</code> par la suivante :</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">requestListener</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">response</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">text/html</span><span class="dl">"</span><span class="p">);</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">contents</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="dl">"</span><span class="s2">index.html</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">utf8</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="dl">"</span><span class="s2">/index.html</span><span class="dl">"</span><span class="p">:</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">contents</span><span class="p">);</span>
+      <span class="k">case</span> <span class="dl">"</span><span class="s2">/random.html</span><span class="dl">"</span><span class="p">:</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s2">`&lt;html&gt;&lt;p&gt;</span><span class="p">${</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">())}</span><span class="s2">&lt;/p&gt;&lt;/html&gt;`</span><span class="p">);</span>
+      <span class="nl">default</span><span class="p">:</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">404</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s2">`&lt;html&gt;&lt;p&gt;404: NOT FOUND&lt;/p&gt;&lt;/html&gt;`</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+    <span class="nx">response</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s2">`&lt;html&gt;&lt;p&gt;500: INTERNAL SERVER ERROR&lt;/p&gt;&lt;/html&gt;`</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Tester les <strong>routes</strong> suivantes :</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">http://localhost:8000/index.html</code></li>
+  <li><code class="language-plaintext highlighter-rouge">http://localhost:8000/random.html</code></li>
+  <li><code class="language-plaintext highlighter-rouge">http://localhost:8000/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">http://localhost:8000/dont-exist</code></li>
+</ul>
+
+<p><strong>Question 1.8</strong> donner les codes HTTP reçus par votre navigateur pour chacune des quatre pages précédentes.</p>
+
+<p>Maintenant, on veut ajouter une route <code class="language-plaintext highlighter-rouge">/random/:nb</code> où <code class="language-plaintext highlighter-rouge">:nb</code> est un paramètre entier avec le nombre d’entiers à générer. Ajouter cette route au <code class="language-plaintext highlighter-rouge">switch</code> et reprendre la page <code class="language-plaintext highlighter-rouge">random.html</code> pour générer autant de nombres qu’indiqué dans l’URL.</p>
+
+<p>Pour cela, utiliser <code class="language-plaintext highlighter-rouge">request.url.split("/");</code> qui va décomposer le chemin demandé et faire le <code class="language-plaintext highlighter-rouge">switch</code> sur le premier niveau de l’arborescence. Faites en sorte que le <code class="language-plaintext highlighter-rouge">switch</code> traite <code class="language-plaintext highlighter-rouge">/index.html</code> et <code class="language-plaintext highlighter-rouge">/</code> de la même façon.</p>
+
+<p><strong>Commit/push</strong> dans votre dépot Git.</p>
+
+<h2 id="partie-2--framework-express">Partie 2 : framework Express<a class="anchorjs-link " href="https://gharel.github.io/devweb/TP/TP5/#partie-2--framework-express" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+
+<p>On voit que la gestion manuelle des routes avec un grand <code class="language-plaintext highlighter-rouge">switch</code> va devenir complexe et laborieuse.
+Les frameworks serveur comme <a href="http://expressjs.com/">http://expressjs.com/</a>, <a href="https://koajs.com/">https://koajs.com/</a>, <a href="https://www.fastify.io/">https://www.fastify.io/</a> ou <a href="https://hapi.dev/">https://hapi.dev/</a> vont s’occuper de cette plomberie et proposer une API pour enregistrer des <em>handlers</em> aux différentes routes de l’application.</p>
+
+<h3 id="création-du-serveur">Création du serveur<a class="anchorjs-link " href="https://gharel.github.io/devweb/TP/TP5/#cr%C3%A9ation-du-serveur" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+
+<p>Créer le fichier <code class="language-plaintext highlighter-rouge">server-express.mjs</code> et exécuter la commande suivante :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">--save</span> express http-errors loglevel morgan
+</code></pre></div></div>
+
+<p><strong>Question 2.1</strong> donner les URL des documentations de chacun des modules installés par la commande précédente.</p>
+
+<p>Ensuite, sur le modèle des scripts <code class="language-plaintext highlighter-rouge">http-prod</code> et <code class="language-plaintext highlighter-rouge">http-dev</code> du fichier <code class="language-plaintext highlighter-rouge">package.json</code>, créer les scripts <code class="language-plaintext highlighter-rouge">express-prod</code> et <code class="language-plaintext highlighter-rouge">express-dev</code>.</p>
+
+<p>Ensuite, ajouter le contenu suivant au fichier <code class="language-plaintext highlighter-rouge">server-express.mjs</code></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">express</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">express</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">morgan</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">morgan</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">host</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">localhost</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">port</span> <span class="o">=</span> <span class="mi">8000</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">([</span><span class="dl">"</span><span class="s2">/</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">/index.html</span><span class="dl">"</span><span class="p">],</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">response</span><span class="p">.</span><span class="nx">sendFile</span><span class="p">(</span><span class="dl">"</span><span class="s2">index.html</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">root</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./</span><span class="dl">"</span> <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">"</span><span class="s2">/random/:nb</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">nb</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">contents</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">({</span> <span class="nx">length</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">_</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s2">`&lt;li&gt;</span><span class="p">${</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">())}</span><span class="s2">&lt;/li&gt;`</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="dl">"</span><span class="se">\n</span><span class="dl">"</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">`&lt;html&gt;&lt;ul&gt;</span><span class="p">${</span><span class="nx">contents</span><span class="p">}</span><span class="s2">&lt;/ul&gt;&lt;/html&gt;`</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="nx">host</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>Question 2.2</strong> vérifier que les trois routes fonctionnent.</p>
+
+<p><strong>Question 2.3</strong> lister les en-têtes des réponses fournies par Express. Lesquelles sont nouvelles par rapport au serveur HTTP ?</p>
+
+<p>Remplacer la dernière ligne de <code class="language-plaintext highlighter-rouge">server-express.mjs</code> par les suivantes</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="nx">host</span><span class="p">);</span>
+
+<span class="nx">server</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">listening</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span>
+    <span class="s2">`HTTP listening on http://</span><span class="p">${</span><span class="nx">server</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">address</span><span class="p">}</span><span class="s2">:</span><span class="p">${</span><span class="nx">server</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">port</span><span class="p">}</span><span class="s2"> with mode '</span><span class="p">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span><span class="p">}</span><span class="s2">'`</span><span class="p">,</span>
+  <span class="p">),</span>
+<span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">`File </span><span class="p">${</span><span class="k">import</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="s2"> executed.`</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>Question 2.4</strong> quand l’événement <code class="language-plaintext highlighter-rouge">listening</code> est-il déclenché ?</p>
+
+<p><strong>Commit/push</strong> dans votre dépot Git.</p>
+
+<h3 id="ajout-de-middlewares">Ajout de middlewares<a class="anchorjs-link " href="https://gharel.github.io/devweb/TP/TP5/#ajout-de-middlewares" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+
+<p>Ici, la route de la page d’accueil charge dynamiquement à chaque requête une ressource statique.
+Ce n’est pas très performant, d’autant plus qu’un <em>middleware</em> Epxress <a href="http://expressjs.com/en/resources/middleware/serve-static.html">existe déjà pour ça</a>.</p>
+
+<ul>
+  <li>créer un sous-dossier <code class="language-plaintext highlighter-rouge">static</code></li>
+  <li>déplacer le fichier <code class="language-plaintext highlighter-rouge">index.html</code> dans le sous-dossier <code class="language-plaintext highlighter-rouge">static</code></li>
+  <li>extraire l’élément <code class="language-plaintext highlighter-rouge">&lt;style&gt;</code> de <code class="language-plaintext highlighter-rouge">index.html</code> dans un nouveau fichier <code class="language-plaintext highlighter-rouge">style.css</code> que vous lierez à <code class="language-plaintext highlighter-rouge">index.html</code> avec <code class="language-plaintext highlighter-rouge">&lt;link rel="stylesheet" href="style.css"&gt;</code></li>
+  <li>remplacer la route de la page d’accueil par <code class="language-plaintext highlighter-rouge">app.use(express.static("static"));</code></li>
+</ul>
+
+<p><strong>Question 2.5</strong> indiquer quelle est l’option (activée par défaut) qui redirige <code class="language-plaintext highlighter-rouge">/</code> vers <code class="language-plaintext highlighter-rouge">/index.html</code> ?</p>
+
+<p><strong>Question 2.6</strong> visiter la page d’accueil puis rafraichir (Ctrl+R) et <em>ensuite</em> <strong>forcer</strong> le rafraichissement (Ctrl+Shift+R). Quels sont les codes HTTP sur le fichier <code class="language-plaintext highlighter-rouge">style.css</code> ? Justifier.</p>
+
+<p>Ajouter la ligne <code class="language-plaintext highlighter-rouge">if (app.get("env") === "development") app.use(morgan("dev"));</code> au bon endroit dans <code class="language-plaintext highlighter-rouge">server-express.mjs</code> pour activer le middleware Morgan.</p>
+
+<p><strong>Commit/push</strong> dans votre dépot Git.</p>
+
+<h3 id="rendu-avec-ejs">Rendu avec EJS<a class="anchorjs-link " href="https://gharel.github.io/devweb/TP/TP5/#rendu-avec-ejs" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+
+<p>Le moteur de templating <a href="https://ejs.co/">https://ejs.co/</a> est l’équivalent de Jinja utilisé pour Python/Flask dans l’écosytème Nodes.js/Express.
+Une <a href="https://marketplace.visualstudio.com/items?itemName=DigitalBrainstem.javascript-ejs-support">extension VSCode</a> est disponible pour EJS.</p>
+
+<p>On va utiliser le moteur EJS pour améliorer la page <code class="language-plaintext highlighter-rouge">random</code> générée dynamiquement côté serveur.</p>
+
+<ol>
+  <li>créer un sous-dossier <code class="language-plaintext highlighter-rouge">views/</code> et créer un fichier <code class="language-plaintext highlighter-rouge">views/random.ejs</code> avec le contenu ci-après;</li>
+  <li>exécuter la commande <code class="language-plaintext highlighter-rouge">npm install --save ejs</code>;</li>
+  <li>ajouter la ligne <code class="language-plaintext highlighter-rouge">app.set("view engine", "ejs");</code> à <code class="language-plaintext highlighter-rouge">server-express.mjs</code>;</li>
+  <li>modifier le <em>handler</em> de la route <code class="language-plaintext highlighter-rouge">/random/:nb</code> avec <code class="language-plaintext highlighter-rouge">response.render("random", {numbers, welcome});</code> pour appeller le moteur de rendu, où <code class="language-plaintext highlighter-rouge">numbers</code> est un tableau de nombres aléatoires (comme précédemment) et <code class="language-plaintext highlighter-rouge">welcome</code> une chaîne de caractères.</li>
+</ol>
+
+<h4 id="contenu-de-viewsrandomejs">Contenu de <code class="language-plaintext highlighter-rouge">views/random.ejs</code><a class="anchorjs-link " href="https://gharel.github.io/devweb/TP/TP5/#contenu-de-viewsrandomejs" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/style.css"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Tutorial<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"center"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1&gt;&lt;</span><span class="err">%=</span> <span class="na">welcome</span> <span class="err">%</span><span class="nt">&gt;&lt;/h1&gt;</span>
+      <span class="nt">&lt;</span><span class="err">%</span> <span class="na">numbers.forEach(element =</span><span class="err">&gt; </span><span class="s">{</span> <span class="err">%</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;code&gt;&lt;</span><span class="err">%=</span> <span class="na">element</span> <span class="err">%</span><span class="nt">&gt;&lt;/code&gt;</span>
+      <span class="nt">&lt;</span><span class="err">%</span> <span class="err">})</span> <span class="err">%</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Commit/push</strong> dans votre dépot Git.</p>
+
+<h3 id="gestion-derreurs">Gestion d’erreurs<a class="anchorjs-link " href="https://gharel.github.io/devweb/TP/TP5/#gestion-derreurs" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+
+<p>On va maintenant vérifier que le paramètre <code class="language-plaintext highlighter-rouge">/random/:nb</code> est bien un nombre. Si ce n’est pas le cas, il faut retourner une erreur HTTP 400.
+Pour cela, utiliser le module <a href="https://github.com/jshttp/http-errors">https://github.com/jshttp/http-errors</a></p>
+
+<ol>
+  <li>ajouter le module <code class="language-plaintext highlighter-rouge">http-errors</code> avec <code class="language-plaintext highlighter-rouge">npm</code></li>
+  <li>ajouter le <code class="language-plaintext highlighter-rouge">import ... from ...</code> correspondant dans <code class="language-plaintext highlighter-rouge">server-express.mjs</code></li>
+  <li>dans la toute <code class="language-plaintext highlighter-rouge">/random/:nb</code>, faites la vérification avec <code class="language-plaintext highlighter-rouge">const length = Number.parseInt(request.params.nb, 10);</code> puis <code class="language-plaintext highlighter-rouge">Number.isNaN(length)</code>, si le paramètre, n’est pas un nombre, produire une erreur 400 avec <code class="language-plaintext highlighter-rouge">next(createError(400));</code></li>
+</ol>
+
+<p><strong>Commit/push</strong> dans votre dépot Git.</p>
+
+<p>Avec cette solution, l’erreur n’est pas bien rendue sur le client car elle passe dans le <strong>handler d’erreur par défaut d’Express</strong>. De plus, quand on visite une page qui n’existe pas, par exemple <code class="language-plaintext highlighter-rouge">http://localhost:8000/javascript</code>, la 404 n’est pas terrible non plus.</p>
+
+<p>Ajouter, <em>tout à la fin des routes</em>, juste avant <code class="language-plaintext highlighter-rouge">app.listen(port, host);</code>, deux nouvaux <em>handlers</em> comme suit :</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">((</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">concole</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">`default route handler : </span><span class="p">${</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">next</span><span class="p">(</span><span class="nx">createError</span><span class="p">(</span><span class="mi">404</span><span class="p">));</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">((</span><span class="nx">error</span><span class="p">,</span> <span class="nx">_request</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">_next</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">concole</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">`default error handler: </span><span class="p">${</span><span class="nx">error</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">status</span> <span class="o">=</span> <span class="nx">error</span><span class="p">.</span><span class="nx">status</span> <span class="o">??</span> <span class="mi">500</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">stack</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">"</span><span class="s2">env</span><span class="dl">"</span><span class="p">)</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">development</span><span class="dl">"</span> <span class="p">?</span> <span class="nx">error</span><span class="p">.</span><span class="nx">stack</span> <span class="p">:</span> <span class="dl">""</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span> <span class="na">code</span><span class="p">:</span> <span class="nx">status</span><span class="p">,</span> <span class="na">message</span><span class="p">:</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span> <span class="nx">stack</span> <span class="p">};</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Ensuite, créer, sur le modèle de <code class="language-plaintext highlighter-rouge">random.ejs</code>, une vue <code class="language-plaintext highlighter-rouge">error.ejs</code> dont le corps est comme suit :</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"center"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Error <span class="nt">&lt;</span><span class="err">%=</span> <span class="na">code</span> <span class="err">%</span><span class="nt">&gt;&lt;/h1&gt;</span>
+    <span class="nt">&lt;p&gt;&lt;</span><span class="err">%=</span> <span class="na">message</span> <span class="err">%</span><span class="nt">&gt;&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;</span><span class="err">%</span> <span class="na">if</span> <span class="err">(</span><span class="na">stack</span> <span class="err">!=</span> <span class="na">null</span><span class="err">)</span> <span class="err">{</span> <span class="err">%</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;pre&gt;&lt;</span><span class="err">%=</span> <span class="na">stack</span> <span class="err">%</span><span class="nt">&gt;&lt;/pre&gt;</span>
+  <span class="nt">&lt;</span><span class="err">%</span> <span class="err">}</span> <span class="err">%</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Question 2.7</strong> vérifier que l’affichage change bien entre le mode <em>production</em> et le mode <em>development</em>.</p>
+
+<p><strong>Commit/push</strong> dans votre dépot Git.</p>
+
+<p>Enfin, chargez le module <code class="language-plaintext highlighter-rouge">loglevel</code> avec <code class="language-plaintext highlighter-rouge">import logger from "loglevel";</code> puis fixer un niveau de verbosité avec <code class="language-plaintext highlighter-rouge">logger.setLevel(logger.levels.DEBUG);</code>.</p>
+
+<p>Remplacez tous les <code class="language-plaintext highlighter-rouge">console.log()</code> et variantes par <code class="language-plaintext highlighter-rouge">logger.error()</code>, <code class="language-plaintext highlighter-rouge">logger.warn()</code>, <code class="language-plaintext highlighter-rouge">logger.info()</code>, <code class="language-plaintext highlighter-rouge">logger.debug()</code> ou <code class="language-plaintext highlighter-rouge">logger.trace()</code> approprié.</p>
+
+<p>Modifier le niveau de verbosité, par exemple <code class="language-plaintext highlighter-rouge">logger.setLevel(logger.levels.WARN);</code> et vérifier l’affichage.</p>
+
+<p><strong>Commit/push</strong> dans votre dépot Git.</p>
+
+<h2 id="conclusion">Conclusion<a class="anchorjs-link " href="https://gharel.github.io/devweb/TP/TP5/#conclusion" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+
+<p>À ce stade du tutoriel, vous avez vues les principales étapes de la création d’une application Node.js/Express.
+Ces étapes seront déjà réalisées dans le projet de départ du <a href="https://gharel.github.io/devweb/TP/TP6">TP6</a>.</p>
+
+
+
+      
+    </div>
+    <script src="./Tutoriel HTTP_Express Node.js _ devweb_files/anchor.min.js.téléchargement" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  
+
+</body></html>
