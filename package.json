@@ -7,14 +7,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "http-dev": "cross-env NODE_ENV=development nodemon server-http.mjs",
     "http-prod": "cross-env NODE_ENV=production node server-http.mjs",
-    "express-prod": "NODE_ENV=production node app.js",
-    "express-dev": "NODE_ENV=development nodemon app.js"
+    "express-prod":"NODE_ENV=production node app.js",
+    "express-dev":"NODE_ENV=development nodemon app.js",
+    "start:dev": "cross-env NODE_ENV=development node server-express.mjs",
+    "start:prod": "cross-env NODE_ENV=production node server-express.mjs"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cross-env": "^7.0.3",
-    "ejs": "^3.1.10",
     "express": "^4.21.0",
     "http-errors": "^2.0.0",
     "loglevel": "^1.9.2",

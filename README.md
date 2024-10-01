@@ -149,3 +149,8 @@ Question 2.6 visiter la page d’accueil puis rafraichir (Ctrl+R) et ensuite for
 Lors de la première visite on a 200 OK le navigateur demande les fichiers au serveur
 Lors du rafraichissement on a 304 Not modified car le navigateur minimise le traffic en utilisant les fichiers déja télécharger
 Lors du rafraichissement forcé on a 200 OK et ici le navigateur est forcé de demender les fichiers au serveur
+
+Question 2.7 vérifier que l’affichage change bien entre le mode production et le mode development.
+- dev
+500: INTERNAL SERVER ERROR
+- prod
