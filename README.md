@@ -152,5 +152,16 @@ Lors du rafraichissement forcé on a 200 OK et ici le navigateur est forcé de d
 
 Question 2.7 vérifier que l’affichage change bien entre le mode production et le mode development.
 - dev
-500: INTERNAL SERVER ERROR
+ReferenceError: concole is not defined
+    at file:///C:/Users/monpc/Desktop/dev%20web/devweb-tp5/server-express.mjs:37:5
+    at Layer.handle_error (C:\Users\monpc\Desktop\dev web\devweb-tp5\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\monpc\Desktop\dev web\devweb-tp5\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\monpc\Desktop\dev web\devweb-tp5\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\monpc\Desktop\dev web\devweb-tp5\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\monpc\Desktop\dev web\devweb-tp5\node_modules\express\lib\router\index.js:280:10)
+    at Layer.handle [as handle_request] (C:\Users\monpc\Desktop\dev web\devweb-tp5\node_modules\express\lib\router\layer.js:97:5)
+    at trim_prefix (C:\Users\monpc\Desktop\dev web\devweb-tp5\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\monpc\Desktop\dev web\devweb-tp5\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\monpc\Desktop\dev web\devweb-tp5\node_modules\express\lib\router\index.js:346:12)
 - prod
+Internal Server Error
